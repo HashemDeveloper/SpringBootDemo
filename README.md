@@ -9,7 +9,21 @@ This demo project is built using Spring Boot to explore REST API development and
 
 ## 🚀 How to Run the Spring Boot App
 
-Make sure you have Java 17+ and Maven installed.
+Make sure you have Java 17+ installed.
+
+### 🧰 Install Maven (if not installed)
+
+```bash
+brew install maven
+```
+
+Verify installation:
+
+```bash
+mvn -v
+```
+
+### ▶️ Start the Spring Boot App
 
 ```bash
 mvn clean install
