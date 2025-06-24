@@ -11,7 +11,7 @@ This demo project is built using Spring Boot to explore REST API development and
 
 Make sure you have Java 17+ and Maven installed.
 
-If Maven is not installed:
+If you don't have Maven:
 
 ```bash
 brew install maven
@@ -25,9 +25,9 @@ mvn spring-boot:run
 ```
 
 Access the app:
-- **API endpoint**: http://localhost:8080/api/users
-- **Swagger UI**: http://localhost:8080/swagger-ui/index.html
-- **OpenAPI Spec**: http://localhost:8080/v3/api-docs
+- API endpoint: http://localhost:8080/api/users
+- Swagger UI: http://localhost:8080/swagger-ui/index.html
+- OpenAPI Spec: http://localhost:8080/v3/api-docs
 
 ## 📦 SDK Generation via OpenAPI Generator
 
@@ -63,9 +63,7 @@ openapi-generator generate \
   -o ./ios-sdk
 ```
 
----
-
-## 🔁 Offline SDK Generation Using `openapi.yaml`
+## 🔁 Offline SDK Generation Using openapi.yaml
 
 You can also generate SDKs without running the server by using a local OpenAPI spec file.
 
@@ -74,7 +72,7 @@ You can also generate SDKs without running the server by using a local OpenAPI s
 - You’re offline or the backend is not running
 - Frontend/mobile teams want to generate SDKs independently
 
-Sample `openapi.yaml`:
+### 🧾 Sample `openapi.yaml`
 
 ```yaml
 openapi: 3.0.1
@@ -115,7 +113,7 @@ components:
           example: Smith
 ```
 
-### ✅ Generate SDK from YAML
+### 🛠 Generate from YAML (Offline)
 
 ```bash
 openapi-generator generate \
@@ -124,20 +122,18 @@ openapi-generator generate \
   -o ./android-sdk
 ```
 
-Replace `kotlin` with `swift5` to generate the iOS SDK.
+## 🧪 Android SDK Usage Example
 
-## 🧪 Example: Using Generated Android SDK
+Once the SDK is generated, include it in your Android app:
 
-Once you've generated the Android SDK using OpenAPI Generator, you can integrate it into your Android project as a module.
-
-### 🔧 Step 1: Include the module in `settings.gradle.kts`
+### `settings.gradle.kts`
 
 ```kotlin
 include(":android-sdk")
 project(":android-sdk").projectDir = file("../android-sdk")
 ```
 
-### 📦 Step 2: Add dependency in `build.gradle.kts`
+### `build.gradle.kts`
 
 ```kotlin
 dependencies {
@@ -145,22 +141,37 @@ dependencies {
 }
 ```
 
-### 🧑‍💻 Step 3: Use the SDK in your code
-
-Make sure to run the backend or use a mock server that returns the expected response format.
+### Example usage in your ViewModel or Repository
 
 ```kotlin
-val api = UserControllerApi()
-CoroutineScope(Dispatchers.IO).launch {
-    try {
-        val users = api.getUsers()
-        users.forEach {
-            Log.d("SDKExample", "${it.firstName} ${it.lastName}")
+import com.example.androidsdk.apis.UserControllerApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import android.util.Log
+
+fun fetchUsers() {
+    val api = UserControllerApi()
+
+    CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val users = api.getUsers()
+            Log.d("SDK", "Users: $users")
+        } catch (e: Exception) {
+            Log.e("SDK", "Failed to fetch users", e)
         }
-    } catch (e: Exception) {
-        Log.e("SDKExample", "Error fetching users", e)
     }
 }
 ```
 
 Let me know if you want a Swift/iOS usage example as well!
+
+---
+
+## ✅ References and Sources
+
+- OpenAPI Generator Kotlin Docs: https://openapi-generator.tech/docs/generators/kotlin  
+- Android Gradle Setup: https://developer.android.com/studio/build/dependencies  
+- Retrofit Library: https://square.github.io/retrofit/  
+- Kotlin Coroutines: https://kotlinlang.org/docs/coroutines-basics.html  
+- Example usage pattern adapted from OpenAPI community and generator output files.
