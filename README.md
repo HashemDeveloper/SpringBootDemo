@@ -125,3 +125,42 @@ openapi-generator generate \
 ```
 
 Replace `kotlin` with `swift5` to generate the iOS SDK.
+
+## 🧪 Example: Using Generated Android SDK
+
+Once you've generated the Android SDK using OpenAPI Generator, you can integrate it into your Android project as a module.
+
+### 🔧 Step 1: Include the module in `settings.gradle.kts`
+
+```kotlin
+include(":android-sdk")
+project(":android-sdk").projectDir = file("../android-sdk")
+```
+
+### 📦 Step 2: Add dependency in `build.gradle.kts`
+
+```kotlin
+dependencies {
+    implementation(project(":android-sdk"))
+}
+```
+
+### 🧑‍💻 Step 3: Use the SDK in your code
+
+Make sure to run the backend or use a mock server that returns the expected response format.
+
+```kotlin
+val api = UserControllerApi()
+CoroutineScope(Dispatchers.IO).launch {
+    try {
+        val users = api.getUsers()
+        users.forEach {
+            Log.d("SDKExample", "${it.firstName} ${it.lastName}")
+        }
+    } catch (e: Exception) {
+        Log.e("SDKExample", "Error fetching users", e)
+    }
+}
+```
+
+Let me know if you want a Swift/iOS usage example as well!
