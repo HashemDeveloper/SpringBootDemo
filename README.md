@@ -164,8 +164,6 @@ fun fetchUsers() {
 }
 ```
 
-Let me know if you want a Swift/iOS usage example as well!
-
 ---
 
 ## ✅ References and Sources
