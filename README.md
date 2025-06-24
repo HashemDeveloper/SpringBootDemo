@@ -164,12 +164,37 @@ fun fetchUsers() {
 }
 ```
 
----
+## 🍎 iOS SDK Usage Example (Swift 5)
+
+After generating the `ios-sdk`, you can import it into your Xcode project.
+
+### 1. Drag and Drop SDK Folder
+- Drag `ios-sdk` into your Xcode project
+- Select **"Create folder references"** (not "Create groups")
+
+### 2. Use in Swift
+
+```swift
+import ios_sdk
+
+func fetchUsers() {
+    let api = UserControllerApi()
+
+    api.getUsers { result, error in
+        if let users = result {
+            print("Fetched users: \(users)")
+        } else if let error = error {
+            print("Error: \(error)")
+        }
+    }
+}
+```
 
 ## ✅ References and Sources
 
 - OpenAPI Generator Kotlin Docs: https://openapi-generator.tech/docs/generators/kotlin  
+- OpenAPI Generator Swift5 Docs: https://openapi-generator.tech/docs/generators/swift5  
 - Android Gradle Setup: https://developer.android.com/studio/build/dependencies  
-- Retrofit Library: https://square.github.io/retrofit/  
 - Kotlin Coroutines: https://kotlinlang.org/docs/coroutines-basics.html  
-- Example usage pattern adapted from OpenAPI community and generator output files.
+- OpenAPI Spec Guide: https://swagger.io/specification/  
+- Swift SDK integration: https://openapi-generator.tech/docs/usage#usage  
